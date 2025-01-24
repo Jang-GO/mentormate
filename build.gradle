@@ -24,10 +24,21 @@ repositories {
 }
 
 dependencies {
+    // basic
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // socket
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+    // security
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // etc
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
