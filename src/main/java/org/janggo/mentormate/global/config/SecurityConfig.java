@@ -22,11 +22,7 @@ public class SecurityConfig {
                         authorizeRequest
                                 .requestMatchers("/**").permitAll()
                                 .anyRequest().authenticated()
-                        )
-                .oauth2Login(oauth2 ->
-                        oauth2
-                                .defaultSuccessUrl("/login/success", true) // 카카오 인증 성공 후 리다이렉트 경로
-                );;
+                        );
         return http.build();
     }
 }
