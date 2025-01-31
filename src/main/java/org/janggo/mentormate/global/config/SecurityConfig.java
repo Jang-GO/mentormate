@@ -1,6 +1,8 @@
 package org.janggo.mentormate.global.config;
 
 import lombok.RequiredArgsConstructor;
+import org.janggo.mentormate.global.auth.KakaoOAuth2UserService;
+import org.janggo.mentormate.global.auth.jwt.JwtAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+    private final KakaoOAuth2UserService kakaoOAuth2UserService;
+    private final JwtAuthenticationSuccessHandler jwtAuthenticationSuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -24,7 +28,14 @@ public class SecurityConfig {
                         authorizeRequest
                                 .requestMatchers("/**").permitAll()
                                 .anyRequest().authenticated()
-                        );
+                        )
+                .oauth2Login(oauth2 ->
+                        oauth2
+                                .authorizationEndpoint(end -> end.baseUri("/auth/login"))
+                                .userInfoEndpoint(userInfoEndpoint ->
+                                        userInfoEndpoint.userService(kakaoOAuth2UserService)));
+
+
         return http.build();
     }
 
