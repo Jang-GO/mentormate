@@ -1,7 +1,7 @@
 package org.janggo.mentormate.global.config;
 
 import lombok.RequiredArgsConstructor;
-import org.janggo.mentormate.global.auth.KakaoOAuth2UserService;
+import org.janggo.mentormate.global.auth.CustomOAuth2UserService;
 import org.janggo.mentormate.global.auth.jwt.JwtAuthenticationSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final KakaoOAuth2UserService kakaoOAuth2UserService;
+    private final CustomOAuth2UserService customOAuth2UserService;
     private final JwtAuthenticationSuccessHandler jwtAuthenticationSuccessHandler;
 
     @Bean
@@ -36,7 +36,7 @@ public class SecurityConfig {
                         oauth2
                                 .authorizationEndpoint(end -> end.baseUri("/auth/login"))
                                 .userInfoEndpoint(userInfoEndpoint ->
-                                        userInfoEndpoint.userService(kakaoOAuth2UserService)));
+                                        userInfoEndpoint.userService(customOAuth2UserService)));
 
 
         return http.build();
