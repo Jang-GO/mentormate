@@ -25,6 +25,7 @@ public class KakaoOAuth2UserService extends DefaultOAuth2UserService {
         // 카카오 ID 및 닉네임 추출
         String kakaoId = attributes.get("id").toString();
         Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+        log.info("kakao info - {}", attributes);
         String nickname = ((Map<String, Object>) kakaoAccount.get("profile")).get("nickname").toString();
 
         log.info("카카오 로그인 성공 - ID: {}, 닉네임: {}", kakaoId, nickname);
